@@ -1,0 +1,2 @@
+Ultralytics >= 8.0.227
+opencv-python >= 4.8.1
