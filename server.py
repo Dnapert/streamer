@@ -82,6 +82,7 @@ while True:
     print("TOTAL CLIENTS ",threading.active_count() - 1)
     if stop_signal:
         break
+print("STOPPING VIDEO STREAM")
 vid.release()
 cv2.destroyAllWindows()
 server_socket.close()
