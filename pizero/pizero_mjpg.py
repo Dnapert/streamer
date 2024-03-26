@@ -3,10 +3,10 @@ from flask import Flask, Response
 import cv2
 
 app = Flask(__name__)
+cam = Picamera2()
+cam.start()
 
 def generate_frames():
-    cam = Picamera2()
-    cam.start()
     while True:
         image = cam.capture_array()
         ret, buffer = cv2.imencode('.jpg', image)

@@ -3,8 +3,19 @@ from ultralytics import YOLO
 import threading
 import uuid
 import signal
+import torch
 model = YOLO('yolov8n.pt')
 
+if torch.cuda.is_available():
+    print("Using GPU")
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    print("Using MPS")
+    device = torch.device("mps")
+else:
+    print("Using CPU")
+    device = torch.device("cpu")
+    
 stop_signal = False
 
 def handle_signal(sig,frame):
@@ -33,9 +44,6 @@ def create_socket():
         server_socket = None
     return server_socket,host_ip
   
-
-
-
 def get_cap():
     vid = cv2.VideoCapture(0)
     return vid
@@ -50,7 +58,7 @@ def handle_client(client_socket,addr,vid,client_id):
             img,frame = vid.read()
             frame = imutils.resize(frame,width=640)
             if img is not None:
-                results = model.track(frame,conf=.5,verbose=False,device=0,save=False,show=False)
+                results = model.track(frame,conf=.5,verbose=False,device=device,save=False,show=False)
                 frame = results[0].plot()
             a = pickle.dumps(frame)
             message = struct.pack("Q",len(a))+a

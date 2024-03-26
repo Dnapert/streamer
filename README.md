@@ -8,17 +8,6 @@ pip install -r requirements.txt
 
 have a webcam available and connected
 
-for NVIDIA gpu, no change is necessary
-
-for Apple MPS, in server.py, change this line to 
-```
-results = model.track(frame,conf=.5,verbose=False,device='mps',save=False,show=False)
-```
-For cpu, in server.py, change this line to 
-```
-results = model.track(frame,conf=.5,verbose=False,device='cpu',save=False,show=False)
-```
-
 ## Running
 
 To run the server, run the following command
