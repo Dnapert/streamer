@@ -12,7 +12,7 @@ signal.signal(signal.SIGINT,handle_signal)
 signal.signal(signal.SIGTERM,handle_signal)
 
 client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-host_ip = '127.0.1.1'
+host_ip = '192.168.0.220'
 port = 6942
 socket_address = (host_ip,port)
 client_socket.connect(socket_address)
