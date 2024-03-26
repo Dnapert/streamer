@@ -9,12 +9,10 @@ def generate_frames():
     cam.start()
     while True:
         image = cam.capture_array()
-        if not image:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', image)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
+  
+        ret, buffer = cv2.imencode('.jpg', image)
+        frame = buffer.tobytes()
+        yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # Concatenate video frames
 
 @app.route('/video')
