@@ -21,7 +21,7 @@ while True:
     frame_data = data[:msg_size]
     data = data[msg_size:]
     frame = pickle.loads(frame_data)
-    if frame is not None:
+    if frame:
         cv2.imshow('Client', frame)
     if cv2.waitKey(1) == 13:
         break
