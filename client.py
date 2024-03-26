@@ -1,4 +1,4 @@
-import socket,struct, pickle,cv2, signal
+import socket,struct, pickle,cv2, signal,time
 
 stop_signal = False
 
@@ -12,7 +12,7 @@ signal.signal(signal.SIGINT,handle_signal)
 signal.signal(signal.SIGTERM,handle_signal)
 
 client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-host_ip = '192.168.0.220'
+host_ip = '192.168.0.183'
 port = 6942
 socket_address = (host_ip,port)
 client_socket.connect(socket_address)
@@ -22,6 +22,7 @@ print(connack_msg)
 data = b""
 payload_size = struct.calcsize("Q")
 print(payload_size)
+time.sleep(2)
 while True:
     while len(data) < payload_size:
         packet = client_socket.recv(4*1024)
@@ -30,6 +31,7 @@ while True:
         data+=packet
     packed_msg_size = data[:payload_size]
     data = data[payload_size:]
+    print(len(data),packed_msg_size)
     msg_size = struct.unpack("Q",packed_msg_size)[0]
     
     while len(data) < msg_size:
