@@ -9,12 +9,11 @@ def generate_frames():
     cam.start()
     while True:
         image = cam.capture_array()
-        img_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        ret, buffer = cv2.imencode('.jpg', img_rgb)
+        ret, buffer = cv2.imencode('.jpg', image)
         frame = buffer.tobytes()
         yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # Concatenate video frames
-
+    
 @app.route('/video')
 def video():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
