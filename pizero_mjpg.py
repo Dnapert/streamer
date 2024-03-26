@@ -4,9 +4,9 @@ import cv2
 
 app = Flask(__name__)
 
-cam = Picamera2()
 def generate_frames():
-    cam = cam.start()
+    cam = Picamera2()
+    cam.start()
     while True:
         image = cam.capture_array()
         if not image:
