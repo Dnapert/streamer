@@ -2,7 +2,7 @@ import socket, cv2, pickle, struct
 
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect('192.168.0.183', 8888)  # Replace 'server_ip_address' with the actual server IP
+client_socket.connect(('192.168.0.183', 6942))  # Replace 'server_ip_address' with the actual server IP
 data = b""
 payload_size = struct.calcsize("Q")
 while True:
@@ -21,7 +21,8 @@ while True:
     frame_data = data[:msg_size]
     data = data[msg_size:]
     frame = pickle.loads(frame_data)
-    cv2.imshow('Client', frame)
+    if frame is not None:
+        cv2.imshow('Client', frame)
     if cv2.waitKey(1) == 13:
         break
 cv2.destroyAllWindows()

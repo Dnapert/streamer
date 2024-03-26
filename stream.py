@@ -12,7 +12,6 @@ while True:
     frame_data = pickle.dumps(frame)
     client_socket.sendall(struct.pack("Q", len(frame_data)))
     client_socket.sendall(frame_data)
-    cv2.imshow('Server', frame)
     if cv2.waitKey(1) == 13:
         break
 cap.release()
