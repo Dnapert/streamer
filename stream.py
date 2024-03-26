@@ -1,5 +1,4 @@
 import socket,cv2,pickle,struct,imutils
-from ultralytics import YOLO
 import threading
 import uuid
 import signal
