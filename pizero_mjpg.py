@@ -1,10 +1,10 @@
-from picamera2 import PiCamera2
+from picamera2 import Picamera2
 from flask import Flask, Response
 import cv2
 
 app = Flask(__name__)
 
-cam = PiCamera2()
+cam = Picamera2()
 def generate_frames():
     cam = cam.start()
     while True:
