@@ -9,8 +9,8 @@ def generate_frames():
     cam.start()
     while True:
         image = cam.capture_array()
-  
-        ret, buffer = cv2.imencode('.jpg', image)
+        img_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        ret, buffer = cv2.imencode('.jpg', img_rgb)
         frame = buffer.tobytes()
         yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # Concatenate video frames
